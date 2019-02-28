@@ -3,6 +3,10 @@ import { LoggerService } from './logger.service';
 import { NgForm } from '@angular/forms';
 import { C } from './constants';
 
+const WindowName = 'expwindow';
+const Task2Data = 'movies';
+const Task2SId = 'task2';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -25,7 +29,7 @@ export class AppComponent implements OnInit {
 
     problemTemplates: { [pid: string]: TemplateRef<any> };
 
-    uid: string = null;
+    uid: string = '1'; //null;
 
     pid: number = 0; //2;
     startAt: number;
@@ -44,6 +48,10 @@ export class AppComponent implements OnInit {
         this.setup();
     }
 
+    url(data:string, uid:string, sid:string) {
+        return `https://e-.github.io/ProReveal/?study=1&data=${data}&uid=${uid}&sid=${sid}`;
+    }
+
     setup() {
         this.logger.setup(this.uid);
         console.log(this.logger.userLog)
@@ -59,9 +67,15 @@ export class AppComponent implements OnInit {
         return false;
     }
 
+    createNewWindow() {
+        window.open(this.url('weather', this.uid, '0'), WindowName, 'resize');
+    }
+
     startProblem(pid: number) {
         this.pid = pid;
         this.startAt = +new Date();
+
+        window.open(this.url(this.PS[pid].data, this.uid, pid.toString()), WindowName, 'resize');
     }
 
     select(answer: number) {
@@ -78,6 +92,11 @@ export class AppComponent implements OnInit {
         this.logger.save();
 
         this.pid = null;
+    }
+
+    startTask2() {
+        window.open(this.url(Task2Data, this.uid, Task2SId), WindowName, 'resize');
+
     }
 
     downloadCurrentUserLog() {

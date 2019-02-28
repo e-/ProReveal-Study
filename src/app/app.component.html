@@ -33,6 +33,7 @@
 
     <h1>태스크 1</h1>
     <div class="pt-2">
+        <button class="btn btn-sm btn-light border mb-4" (click)="createNewWindow()">실험 인터페이스 열기</button>
         <div class="row">
             <ng-container *ngFor="let p of logger.userLog.problemLogs; index as i">
                 <div class="w-100" *ngIf="i === 5"></div>
@@ -43,6 +44,10 @@
             </ng-container>
         </div>
     </div>
+
+    <h1>태스크 2</h1>
+
+    <button class="btn btn-sm btn-light border mb-4" (click)="startTask2()">태스크 2 시작</button>
 
     <hr>
     <button class="btn btn-light border" (click)="downloadCurrentUserLog()">
@@ -64,7 +69,6 @@
         </div>
     </section>
 </section>
-
 
 <ng-template #p1>
     <ol>
