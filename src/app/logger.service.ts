@@ -52,16 +52,16 @@ export class UserLog {
     problemLogs: ProblemLog[] = [];
 
     constructor(public uid: UId) {
-        for(let i = 0; i < 5; i++) {
+        for(let i = 1; i <= 5; i++) {
             this.problemLogs.push(new ProblemLog(
-                uid, i + 1, 0, 0, 0, 0, C.problemSpecs[i].correctAnswer, false
+                uid, i, 0, 0, 0, 0, C.problemSpecs[i].correctAnswer, false
             ));
         }
 
         let remaining = [];
-        for(let i = 5 ; i < C.numProblems; i++) {
+        for(let i = 6 ; i <= C.numProblems; i++) {
             remaining.push(new ProblemLog(
-                uid, i + 1, 0, 0, 0, 0, C.problemSpecs[i].correctAnswer, false
+                uid, i, 0, 0, 0, 0, C.problemSpecs[i].correctAnswer, false
             ));
         }
 
@@ -70,8 +70,14 @@ export class UserLog {
         this.problemLogs = this.problemLogs.concat(remaining);
     }
 
+    getProblemLog(pid: PId) {
+        return this.problemLogs.find(p => p.pid === pid);
+    }
+
     static fromObject(o: UserLogSpec) {
         let ulog = new UserLog(o.uid);
+
+        ulog.problemLogs = [];
 
         o.problemLogs.forEach(slogObject => {
             ulog.problemLogs.push(ProblemLog.fromObject(slogObject));
@@ -117,17 +123,6 @@ export class LoggerService {
 
         this.userLog = this.userLogs.filter(ulog => ulog.uid === uid)[0];
     }
-
-    // log(type: LogType, data: Object) {
-    //     if (this.muted) return;
-
-    //     let now = Date.now();
-    //     let item = new LogItem(type, data, now);
-
-    //     this.sessionLog.logs.push(item);
-
-    //     this.save();
-    // }
 
     save() {
         let o: UserLogSpec[] = [];

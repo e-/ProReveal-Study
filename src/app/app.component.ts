@@ -8,8 +8,9 @@ import { C } from './constants';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
     C = C;
+    PS = C.problemSpecs;
 
     @ViewChild('p1') p1: TemplateRef<any>;
     @ViewChild('p2') p2: TemplateRef<any>;
@@ -22,20 +23,23 @@ export class AppComponent implements OnInit{
     @ViewChild('p9') p9: TemplateRef<any>;
     @ViewChild('p10') p10: TemplateRef<any>;
 
-    problemTemplates: TemplateRef<any>[];
+    problemTemplates: { [pid: string]: TemplateRef<any> };
 
-    pid = 1;
-    uid: string = '1';
+    uid: string = null;
+
+    pid: number = 0; //2;
+    startAt: number;
+    endAt: number;
 
     constructor(public logger: LoggerService) {
 
     }
 
     ngOnInit() {
-        this.problemTemplates = [
-            this.p1, this.p2, this.p3, this.p4, this.p5,
-            this.p6, this.p7, this.p8, this.p9, this.p10
-        ];
+        this.problemTemplates = {
+            1: this.p1, 2: this.p2, 3: this.p3, 4: this.p4, 5: this.p5,
+            6: this.p6, 7: this.p7, 8: this.p8, 9: this.p9, 10: this.p10
+        };
 
         this.setup();
     }
@@ -47,7 +51,7 @@ export class AppComponent implements OnInit{
 
     onSubmit(f: NgForm) {
         let uid = f.value.uid;
-        if(uid) {
+        if (uid) {
             this.uid = uid;
             this.setup();
         }
@@ -55,9 +59,36 @@ export class AppComponent implements OnInit{
         return false;
     }
 
-    startProblem(pindex: number) {
-        let pid = pindex + 1;
+    startProblem(pid: number) {
+        this.pid = pid;
+        this.startAt = +new Date();
+    }
 
+    select(answer: number) {
+        const endAt = +new Date();
+        let problemLog = this.logger.userLog.getProblemLog(this.pid);
 
+        problemLog.userAnswer = answer;
+        problemLog.isCorrect = answer === problemLog.correctAnswer;
+        problemLog.startAt = this.startAt;
+        problemLog.endAt = endAt;
+        problemLog.duration = endAt - this.startAt;
+
+        // save
+        this.logger.save();
+
+        this.pid = null;
+    }
+
+    downloadCurrentUserLog() {
+        let userLog = this.logger.userLog;
+        let userLogString = JSON.stringify(userLog.toObject(), null, 2);
+        let dataString = `data:text/json;charset=utf-8,${encodeURIComponent(userLogString)}`;
+        let anchor = document.createElement("a");
+        anchor.setAttribute("href", dataString);
+        anchor.setAttribute("download", `answers-${this.logger.uid}.json`);
+        document.body.appendChild(anchor); // required for firefox
+        anchor.click();
+        anchor.remove();
     }
 }
