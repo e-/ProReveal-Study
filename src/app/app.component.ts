@@ -79,6 +79,8 @@ export class AppComponent implements OnInit {
     }
 
     select(answer: number) {
+        window.open('http://blank.org', WindowName, 'resize');
+
         const endAt = +new Date();
         let problemLog = this.logger.userLog.getProblemLog(this.pid);
 
@@ -96,7 +98,6 @@ export class AppComponent implements OnInit {
 
     startTask2() {
         window.open(this.url(Task2Data, this.uid, Task2SId), WindowName, 'resize');
-
     }
 
     downloadCurrentUserLog() {
