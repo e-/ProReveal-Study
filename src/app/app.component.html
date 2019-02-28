@@ -4,12 +4,143 @@
         ProReveal
     </a>
 
-    <div class="mr-auto">
-        werewr
-
+    <div class="mr-auto text-light">
+        실험 인터페이스
     </div>
 
-    <div>
-        right
+    <div class="text-light">
+        <span [hidden]="uid">Not logged in</span>
+        <span [hidden]="!uid">Logged in (UID: {{ uid }})</span>
     </div>
 </section>
+
+<section class="container pt-2" *ngIf="!uid">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" ngNativeValidate>
+        <div class="form-group">
+            <label for="uid">User ID</label>
+            <input type="text" class="form-control" id="uid" aria-describedby="uidhelp"
+                placeholder="User ID (e.g., 4)" ngModel required="required" name="uid"
+            />
+            <small id="uidhelp" class="form-text text-muted">Enter User ID</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Start</button>
+    </form>
+</section>
+
+<section class="container pt-2" *ngIf="uid">
+    <h1>교육 자료</h1>
+
+    <h1>태스크 1</h1>
+    <div>
+        <div class="row">
+            <ng-container *ngFor="let p of logger.userLog.problemLogs; index as i">
+                <div class="w-100" *ngIf="i === 5"></div>
+                <div class="mb-2 col-2">
+                    {{ C.problemSpecs[logger.userLog.problemLogs[i].pid - 1].name }}
+                    <button class="btn btn-sm btn-primary" (click)="startProblem(logger.userLog.problemLogs[i].pid)">풀기</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="p1"></ng-container>
+    <ng-container *ngTemplateOutlet="p2"></ng-container>
+    <ng-container *ngTemplateOutlet="p3"></ng-container>
+    <ng-container *ngTemplateOutlet="p4"></ng-container>
+    <ng-container *ngTemplateOutlet="p5"></ng-container>
+    <ng-container *ngTemplateOutlet="p6"></ng-container>
+    <ng-container *ngTemplateOutlet="p7"></ng-container>
+    <ng-container *ngTemplateOutlet="p8"></ng-container>
+    <ng-container *ngTemplateOutlet="p9"></ng-container>
+    <ng-container *ngTemplateOutlet="p10"></ng-container>
+</section>
+
+<ng-template #p1>
+    <ul>
+        <li><strong>날씨</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 개수가 많은 <strong>날씨</strong>에 대해 <u>순위 세이프가드</u>를 만들고, 순위를 <mark>1위</mark>만 포함하도록 설정하세요.</li>
+        <li>가장 개수가 많은 <strong>날씨</strong>에 해당하는 데이터에 대해 <strong>강수량</strong>과 <strong>바람세기</strong> 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>가장 많은 데이터가 속한 (<strong>강수량</strong>, <strong>바람세기</strong>) 구간은 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p2>
+    <ul>
+        <li><strong>최대 온도</strong>의 구간 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li><strong>최대 온도</strong>가 <em>~14</em>인 구간에 대해 <u>범위 세이프가드</u>를 만들고, 범위가 <mark>400이상 600이하</mark>를 포함하도록 설정하세요.</li>
+        <li><strong>최대 온도</strong>가 <em>~14</em>인 구간에 해당하는 데이터에 대해 <strong>날씨</strong>와 <strong>지역</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>가장 많은 데이터가 속한 (<strong>날씨</strong>, <strong>지역</strong>) 조합은 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p3>
+    <ul>
+        <li><strong>지역</strong> 별 평균 <strong>바람세기</strong>를 보여주는 막대 그래프를 그리세요.</li>
+        <li><em>뉴욕</em>의 평균 <strong>바람세기</strong>가 <em>시애틀</em>보다 크다는 <u>비교 세이프가드</u>를 만드세요.</li>
+        <li><em>뉴욕</em>에 해당하는 데이터에 대해 <strong>날씨</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 많은 데이터가 속한 <strong>날씨</strong>는 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p4>
+    <ul>
+        <li><strong>날씨</strong>와 <strong>지역</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>(<em>비</em>, <em>시애틀</em>) 에 해당하는 영역에 <u>값 세이프가드</u>를 만들고, 값을 <mark>200</mark>에 가깝게 설정하세요.</li>
+        <li>(<em>비</em>, <em>시애틀</em>) 에 해당하는 데이터에 대해 <strong>강수량</strong>의 구간 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 많은 데이터가 속한 <strong>강수량</strong>의 구간은 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p5>
+    <ul>
+        <li><strong>최대 온도</strong>와 <strong>최소 온도</strong>의 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li><strong>최대 온도</strong>와 <strong>최소 온도</strong>에 대해 <u>선형 회귀 세이프가드</u>를 만드세요.</li>
+        <li><strong>최소 온도</strong>가 <em>~8</em>, <strong>최대 온도</strong>가 <em>~14</em>인 데이터에 대해 <strong>날씨</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 많은 데이터가 속한 <strong>날씨</strong>는 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p6>
+    <ul>
+        <li><strong>야생동물 크기</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 개수가 많은 <strong>야생동물 크기</strong>에 대해 <u>순위 세이프가드</u>를 만들고, 순위를 <mark>1위</mark>만 포함하도록 설정하세요.</li>
+        <li>가장 개수가 많은 <strong>야생동물 크기</strong>에 해당하는 데이터에 대해 <strong>비행 속도</strong>와 <strong>총 비용</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>가장 많은 데이터가 속한 (<strong>비행속도</strong>, <strong>총 비용</strong>)의 구간은 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p7>
+    <ul>
+        <li><strong>비행 속도</strong>의 구간 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li><strong>비행 속도</strong>가 <em>~140</em>인 구간에 <u>범위 세이프가드</u>를 만들고, 범위가 <mark>1,500이상 2,000이하</mark>를 포함하도록 설정하세요.</li>
+        <li><strong>비행 속도</strong>가 <em>~140</em>인 구간에 해당하는 데이터에 대해 <strong>피해 정도</strong>와 <strong>항공기 상태</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>가장 많은 데이터가 속한 (<strong>피해 정도</strong>, <strong>항공기</strong>) 조합은 무엇입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p8>
+    <ul>
+        <li><strong>사고 지역</strong> 별 평균 <strong>총 비용</strong>을 보여주는 막대 그래프를 그리세요.</li>
+        <li><em>뉴욕</em>의 평균 <strong>총 비용</strong>이 <em>캘리포니아</em>보다 크다는 <u>비교 세이프가드</u>를 만드세요.</li>
+        <li><em>뉴욕</em>에 해당하는 데이터에 대해 <strong>공항</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 많은 데이터가 속한 <strong>공항</strong>은 어디입니까?</li>
+    </ul>
+</ng-template>
+
+<ng-template #p9>
+    <ul>
+        <li><strong>피해 정도</strong>와 <strong>충돌 시각</strong> 별 데이터의 개수를 보여주는 힛맵을 만드세요.</li>
+        <li>(<em>밤</em>, <em>없음</em>) 에 해당하는 영역에 <u>값 세이프가드</u>를 만들고, 값을 <mark>3,500</mark>에 가깝게 설정하세요.</li>
+        <li>(<em>밤</em>, <em>없음</em>) 에 해당하는 데이터에 대해 <strong>비행 속도</strong>의 구간 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li>가장 많은 데이터가 속한 <strong>비행 속도</strong>의 구간은 무엇입니까? (<em>“값 없음”</em> 제외)</li>
+    </ul>
+</ng-template>
+
+<ng-template #p10>
+    <ul>
+        <li><strong>수리 비용</strong>과 <strong>기타 비용</strong>의 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li><strong>수리 비용</strong>과 <strong>기타 비용</strong>에 대해 <u>선형 회귀 세이프가드</u>를 만드세요.</li>
+        <li><strong>수리 비용</strong>이 <em>~1억</em>, <strong>기타 비용</strong>이 <em>~400만</em>인 데이터에 대해 <strong>사고 년도</strong> 별 데이터의 개수를 보여주는 막대그래프를 그리세요.</li>
+        <li>가장 많은 데이터가 속한 <strong>사고 년도</strong>는 몇 년입니까?</li>
+    </ul>
+</ng-template>
