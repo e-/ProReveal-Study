@@ -4,7 +4,7 @@ import { shuffle } from './util';
 
 type UId = string; // user id
 type PId = number; // session id
-const LOCAL_STORAGE_KEY = 'sg';
+const LOCAL_STORAGE_KEY = 'sg-study';
 
 export interface ProblemLogSpec {
     uid: UId;
