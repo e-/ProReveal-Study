@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
     uid: string = '2'; //null;
 
-    tid: number = 2;
+    tid: number = 0;
     pid: number = 0; //2;
     startAt: number;
     endAt: number;
@@ -113,7 +113,14 @@ export class AppComponent implements OnInit {
     }
 
     startTask2() {
-        window.open(this.url(Task2Data, this.uid, Task2SId), WindowName, 'resize');
+        let url = this.url(Task2Data, this.uid, Task2SId);
+        url += '&alternate=1&init=1'
+        window.open(url, WindowName, 'resize');
+    }
+
+    startTutorial4() {
+        let url = this.url('weather', this.uid, '0') + '&tutorial=1';
+        window.open(url, WindowName, 'resize')
     }
 
     downloadCurrentUserLog() {

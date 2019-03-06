@@ -136,7 +136,8 @@
             <strong>최대 온도</strong>와 <strong>최소 온도</strong> 필드를 가지고 힛맵을 그려 보세요.
         </li>
         <li class="my-1">
-            <strong>최대 온도</strong>가 <em>~14</em>, <strong>최소 온도</strong>가 <em>~8</em>인 컬러 박스에 마우스 커서를 가져가 툴팁을 확인하고, 추정된 데이터의 개수를 읽어 보세요.
+            <strong>최대 온도</strong>가 <em>~14</em>, <strong>최소 온도</strong>가 <em>~8</em>인 컬러 박스에 마우스 커서를 가져가 툴팁을 확인하고, 추정된
+            데이터의 개수를 읽어 보세요.
         </li>
     </ol>
 
@@ -163,7 +164,8 @@
                 <li class="choice flcl p-1" (click)="wrong()">1. 리뷰 개수와 리뷰 점수의 구간 별 데이터의 개수를 보여주고 있어.</li>
                 <li class="choice flcl p-1" (click)="wrong()">2. 리뷰 점수가 낮은 영화들은 리뷰 개수도 적은 경우가 많아.</li>
                 <li class="choice flcl p-1" (click)="t5q=true">
-                    <span *ngIf="t5q">✔</span> 3. 리뷰 개수가 1,000개 이하이면서 리뷰 점수가 4점~8점 사이에 있는 영화들의 개수의 표준오차가 가장 <em>작아서</em> 믿을만 해.
+                    <span *ngIf="t5q">✔</span> 3. 리뷰 개수가 1,000개 이하이면서 리뷰 점수가 4점~8점 사이에 있는 영화들의 개수의 표준오차가 가장 <em>작아서</em>
+                    믿을만 해.
                 </li>
             </ul>
         </li>
@@ -180,6 +182,27 @@
 
     <iframe width="400" height="200" src="https://www.youtube.com/embed/kRcIJreHnOo" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <hr>
+    <h3>ProReveal 인터페이스 사용해 보기</h3>
+    <p>
+        <button class="btn btn-sm btn-light border" (click)="createNewWindow()">실험 인터페이스 열기</button>
+    </p>
+    <ol>
+        <li class="my-1">
+            <strong>날씨</strong>별 <strong>최대 온도</strong>의 평균을 보는 막대 그래프를 그리세요.
+        </li>
+        <li class="my-1">
+            <strong>날씨</strong>가 <em>화창</em>에 해당하는 막대의 원본 데이터를 표를 통해 확인하세요.
+        </li>
+        <li class="my-1">
+            <strong>날씨</strong>가 <em>이슬비</em>인 데이터만 가지고 지역 별 데이터의 개수를 보는 막대 그래프를 그리세요.
+        </li>
+        <li class="my-1">
+            <strong>날씨</strong>가 <em>이슬비</em>이고 <strong>지역</strong>이 <em>시애틀</em>인 원본 데이터를 표를 통해 확인하세요.
+        </li>
+    </ol>
+
     <p class="my-4">
         <button class="btn btn-light border" (click)="trainingBack()">돌아가기</button>
     </p>
@@ -190,6 +213,43 @@
 
     <iframe width="400" height="200" src="https://www.youtube.com/embed/uM0ayrm89Ro" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <h3>세이프가드 만들어 보기</h3>
+    <p>
+        <button class="btn btn-sm btn-light border" (click)="startTutorial4()">실험 인터페이스 열기</button>
+    </p>
+    <ol>
+        <li class="my-1">
+            이미 세 가지 시각화가 만들어져 있습니다.
+        </li>
+        <li class="my-1 mt-4">
+            <strong>날씨</strong>별 데이터의 개수를 보는 막대 그래프를 선택하고, <em>화창</em> 범주를 선택해 <u>순위 세이프가드</u>를 만드세요. 이 때, 가로 순위 막대를 움직여
+            <mark>2위</mark>를 포함하도록 설정하세요.
+        </li>
+        <li class="my-1">
+            같은 시각화에, <u>Power Law 세이프가드</u>를 만드세요.
+        </li>
+
+        <li class="my-1 mt-4">
+            <strong>지역</strong>별 데이터의 개수를 보는 막대 그래프를 선택하고, <em>시애틀</em>과 <em>뉴욕</em> 사이에 <u>비교 세이프가드</u>를 만드세요.
+        </li>
+        <li class="my-1">
+            같은 시각화에, <em>시애틀</em>에 <u>범위 세이프가드</u>를 만드세요. 이 때, 범위는
+            <mark>1,400 이상, 1,600 이하</mark>를 포함하도록 설정하세요.
+        </li>
+
+        <li class="my-1 mt-4">
+            <strong>최대 온도</strong>와 <strong>최소 온도</strong>의 구간 별 데이터의 개수를 보는 힛맵을 선택하세요.
+        </li>
+        <li class="my-1">
+            <strong>최대 온도</strong>가 <em>~10</em>이고 <strong>최소 온도</strong>가 <em>~4</em>인 컬러 박스에 대해 <u>값 세이프가드</u>를 만들세요.
+            이 때, 값은 <mark>350</mark>과 가까운 값으로 설정하세요.
+        </li>
+        <li class="my-1">
+            같은 시각화에 <u>선형 회귀 세이프가드</u>를 만드세요.
+        </li>
+    </ol>
+
     <p class="my-4">
         <button class="btn btn-light border" (click)="trainingBack()">돌아가기</button>
     </p>
@@ -197,9 +257,11 @@
 
 <section class="container" *ngIf="uid && pid">
     <section class="display">
-        <h1>{{ PS[pid].name }}</h1>
+        <div class="narrow">
+            <h1>{{ PS[pid].name }}</h1>
 
-        <ng-container *ngTemplateOutlet="problemTemplates[pid]"></ng-container>
+            <ng-container *ngTemplateOutlet="problemTemplates[pid]"></ng-container>
+        </div>
 
         <div class="d-flex justify-content-around answers">
             <button *ngFor="let answer of PS[pid].answers; index as i" class="btn btn-light border"
@@ -253,7 +315,7 @@
     <ol>
         <li><strong>최대 온도</strong>와 <strong>최소 온도</strong>의 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
         <li><strong>최대 온도</strong>와 <strong>최소 온도</strong>에 대해 <u>선형 회귀 세이프가드</u>를 만드세요.</li>
-        <li><strong>최소 온도</strong>가 <em>~8</em>, <strong>최대 온도</strong>가 <em>~14</em>인 데이터에 대해 <strong>날씨</strong> 별
+        <li><strong>최대 온도</strong>가 <em>~14</em>, <strong>최소 온도</strong>가 <em>~8</em>인 데이터에 대해 <strong>날씨</strong> 별
             데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
         <li>가장 많은 데이터가 속한 <strong>날씨</strong>는 무엇입니까?</li>
     </ol>
