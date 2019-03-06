@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
     problemTemplates: { [pid: string]: TemplateRef<any> };
 
-    uid: string = '2'; //null;
+    uid: string = null;
 
     tid: number = 0;
     pid: number = 0; //2;
