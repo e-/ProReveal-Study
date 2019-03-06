@@ -77,8 +77,8 @@ export const C = Object.freeze({
             pid: 9,
             name: '문제 4',
             data: 'birdstrikes',
-            correctAnswer: 2,
-            answers: ['~140', '~160', '~180', '~200', '~220']
+            correctAnswer: 5,
+            answers: ['~80', '~100', '~120', '~140', '~160']
             // 140-160
         },
         10: {
