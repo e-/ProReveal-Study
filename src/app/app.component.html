@@ -18,9 +18,8 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" ngNativeValidate>
         <div class="form-group">
             <label for="uid">피실험자 아이디</label>
-            <input type="text" class="form-control" id="uid" aria-describedby="uidhelp"
-                placeholder="예) 4" ngModel required="required" name="uid"
-            />
+            <input type="text" class="form-control" id="uid" aria-describedby="uidhelp" placeholder="예) 4" ngModel
+                required="required" name="uid" />
             <small id="uidhelp" class="form-text text-muted">피실험자 아이디를 입력하세요.</small>
         </div>
 
@@ -28,10 +27,26 @@
     </form>
 </section>
 
-<section class="container pt-2" *ngIf="uid && !pid">
-    <h1>교육 자료</h1>
+<section class="container pt-2" [hidden]="0" *ngIf="uid && !pid && !tid">
+    <h2>교육 자료</h2>
 
-    <h1>태스크 1</h1>
+    <p>
+        <button class="btn btn-light border" (click)="train(1)">1. 점진적 시각적 분석</button>
+    </p>
+
+    <p>
+        <button class="btn btn-light border" (click)="train(2)">2. ProReveal - 1</button>
+    </p>
+
+    <p>
+        <button class="btn btn-light border" (click)="train(3)">3. ProReveal - 2</button>
+    </p>
+
+    <p>
+        <button class="btn btn-light border" (click)="train(4)">4. 세이프가드</button>
+    </p>
+
+    <h2 class="pt-4">태스크 1</h2>
     <div class="pt-2">
         <button class="btn btn-sm btn-light border mb-4" (click)="createNewWindow()">실험 인터페이스 열기</button>
         <div class="row">
@@ -45,7 +60,7 @@
         </div>
     </div>
 
-    <h1>태스크 2</h1>
+    <h2 class="pt-4">태스크 2</h2>
 
     <button class="btn btn-sm btn-light border mb-4" (click)="startTask2()">태스크 2 시작</button>
 
@@ -55,6 +70,131 @@
     </button>
 </section>
 
+<section class="container" *ngIf="uid && tid === 1">
+    <h2 class="py-4">빅 데이터를 이해하기 위한 점진적 시각적 분석</h2>
+
+    <iframe width="400" height="200" src="https://www.youtube.com/embed/bukc6dEhuHs" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <hr>
+    <h3>문제 풀기</h3>
+    <ul>
+        <li>
+            점진적 시각화가 각광을 받는 이유는?
+            <ul class="no-bullets clearfix">
+                <li class="choice flcl p-1" (click)="wrong()">1. 보기 좋아서</li>
+                <li class="choice flcl p-1" (click)="wrong()">2. 구현하기 쉬워서</li>
+                <li class="choice flcl p-1" (click)="t1q=true">
+                    <span *ngIf="t1q">✔</span> 3. 시각적 분석 시 데이터의 크기로 인한 지연시간을 단축시킬 수 있어서
+                </li>
+            </ul>
+        </li>
+        <li class="pt-3">
+            점진적 시각화를 해석할 때 특징으로 올바른 것은?
+            <ul class="no-bullets clearfix">
+                <li class="choice flcl p-1" (click)="wrong()">1. 항상 모든 데이터 처리가 끝날 때 까지 기다려야 한다.</li>
+                <li class="choice flcl p-1" (click)="wrong()">2. 중간 결과는 신뢰할 수 있으므로 무조건 믿어도 된다.</li>
+                <li class="choice flcl p-1" (click)="t2q=true">
+                    <span *ngIf="t2q">✔</span> 3. 중간 결과를 이용하여 최종 결과를 추정한 후 불확실성 또한 시각화하여야 한다.
+                </li>
+            </ul>
+        </li>
+        <li class="pt-3">
+            점진적 시각화에 세이프가드를 도입하는 이유는?
+            <ul class="no-bullets clearfix">
+                <li class="choice flcl p-1" (click)="wrong()">1. 잘 모르겠음</li>
+                <li class="choice flcl p-1" (click)="t3q=true">
+                    <span *ngIf="t3q">✔</span> 2. 애매한 중간 지식을 검증 가능한 수식 형태로 표시하고 분석을 진행한 다음, 최종 결론에 문제가 없다는 것을 확인하기 위해
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="my-4">
+        <button class="btn btn-light border" (click)="trainingBack()">돌아가기</button>
+    </p>
+</section>
+
+<section class="container" *ngIf="uid && tid === 2">
+    <h2 class="py-4">ProReveal 인터페이스 - 1</h2>
+
+    <iframe width="400" height="200" src="https://www.youtube.com/embed/UgvklhDUh3M" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <hr>
+
+    <h3>ProReveal 인터페이스 사용해 보기</h3>
+    <p>
+        <button class="btn btn-sm btn-light border" (click)="createNewWindow()">실험 인터페이스 열기</button>
+    </p>
+    <ol>
+        <li class="my-1">
+            <strong>날씨</strong> 필드를 가지고 막대 그래프를 그려 보세요.
+        </li>
+        <li class="my-1">
+            <strong>날씨</strong>가 <em>안개</em>인 막대에 마우스 커서를 가져가 툴팁을 확인하고, 추정된 데이터의 개수를 읽어 보세요.
+        </li>
+        <li class="my-1">
+            <strong>최대 온도</strong>와 <strong>최소 온도</strong> 필드를 가지고 힛맵을 그려 보세요.
+        </li>
+        <li class="my-1">
+            <strong>최대 온도</strong>가 <em>~14</em>, <strong>최소 온도</strong>가 <em>~8</em>인 컬러 박스에 마우스 커서를 가져가 툴팁을 확인하고, 추정된 데이터의 개수를 읽어 보세요.
+        </li>
+    </ol>
+
+    <h3>문제 풀기</h3>
+    <img src="assets/bars.png" height="80" class="rounded mb-2">
+    <ul>
+        <li>
+            위의 막대 그래프에 대해 <strong>틀린</strong> 설명은?
+            <ul class="no-bullets clearfix">
+                <li class="choice flcl p-1" (click)="wrong()">1. 장르 별 리뷰 점수의 평균을 보여주고 있어.</li>
+                <li class="choice flcl p-1" (click)="wrong()">2. 서부 영화의 평균 리뷰 점수 추정치가 가장 높아.</li>
+                <li class="choice flcl p-1" (click)="t4q=true">
+                    <span *ngIf="t4q">✔</span> 3. 서부 영화 막대 신뢰구간이 가장 좁은 걸 보니 가장 믿을만 해.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <img src="assets/heatmap.png" height="300" class="rounded mt-4 mb-2">
+    <ul>
+        <li>
+            위의 힛맵에 대해 <strong>틀린</strong> 설명은?
+            <ul class="no-bullets clearfix">
+                <li class="choice flcl p-1" (click)="wrong()">1. 리뷰 개수와 리뷰 점수의 구간 별 데이터의 개수를 보여주고 있어.</li>
+                <li class="choice flcl p-1" (click)="wrong()">2. 리뷰 점수가 낮은 영화들은 리뷰 개수도 적은 경우가 많아.</li>
+                <li class="choice flcl p-1" (click)="t5q=true">
+                    <span *ngIf="t5q">✔</span> 3. 리뷰 개수가 1,000개 이하이면서 리뷰 점수가 4점~8점 사이에 있는 영화들의 개수의 표준오차가 가장 <em>작아서</em> 믿을만 해.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <p class="my-4">
+        <button class="btn btn-light border" (click)="trainingBack()">돌아가기</button>
+    </p>
+</section>
+
+
+<section class="container" *ngIf="uid && tid === 3">
+    <h2 class="py-4">ProReveal 인터페이스 - 2</h2>
+
+    <iframe width="400" height="200" src="https://www.youtube.com/embed/kRcIJreHnOo" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p class="my-4">
+        <button class="btn btn-light border" (click)="trainingBack()">돌아가기</button>
+    </p>
+</section>
+
+<section class="container" *ngIf="uid && tid === 4">
+    <h2 class="py-4">세이프가드와 점진적 시각적 분석</h2>
+
+    <iframe width="400" height="200" src="https://www.youtube.com/embed/uM0ayrm89Ro" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <p class="my-4">
+        <button class="btn btn-light border" (click)="trainingBack()">돌아가기</button>
+    </p>
+</section>
+
 <section class="container" *ngIf="uid && pid">
     <section class="display">
         <h1>{{ PS[pid].name }}</h1>
@@ -62,8 +202,8 @@
         <ng-container *ngTemplateOutlet="problemTemplates[pid]"></ng-container>
 
         <div class="d-flex justify-content-around answers">
-            <button *ngFor="let answer of PS[pid].answers; index as i"
-                class="btn btn-light border" (click)="select(i + 1)">
+            <button *ngFor="let answer of PS[pid].answers; index as i" class="btn btn-light border"
+                (click)="select(i + 1)">
                 {{ answer }}
             </button>
         </div>
@@ -74,7 +214,8 @@
     <ol>
         <li><strong>날씨</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
         <li>가장 개수가 많은 <strong>날씨</strong>에 대해 <u>순위 세이프가드</u>를 만들고, 순위를 <mark>1위</mark>만 포함하도록 설정하세요.</li>
-        <li>가장 개수가 많은 <strong>날씨</strong>에 해당하는 데이터에 대해 <strong>강수량</strong>과 <strong>바람세기</strong> 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>가장 개수가 많은 <strong>날씨</strong>에 해당하는 데이터에 대해 <strong>강수량</strong>과 <strong>바람세기</strong> 구간 별 데이터의 개수를 보여주는
+            힛맵을 그리세요.</li>
         <li>가장 많은 데이터가 속한 (<strong>강수량</strong>, <strong>바람세기</strong>) 구간은 무엇입니까?</li>
     </ol>
 </ng-template>
@@ -82,8 +223,10 @@
 <ng-template #p2>
     <ol>
         <li><strong>최대 온도</strong>의 구간 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
-        <li><strong>최대 온도</strong>가 <em>~14</em>인 구간에 대해 <u>범위 세이프가드</u>를 만들고, 범위가 <mark>400이상 600이하</mark>를 포함하도록 설정하세요.</li>
-        <li><strong>최대 온도</strong>가 <em>~14</em>인 구간에 해당하는 데이터에 대해 <strong>날씨</strong>와 <strong>지역</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li><strong>최대 온도</strong>가 <em>~14</em>인 구간에 대해 <u>범위 세이프가드</u>를 만들고, 범위가 <mark>400이상 600이하</mark>를 포함하도록
+            설정하세요.</li>
+        <li><strong>최대 온도</strong>가 <em>~14</em>인 구간에 해당하는 데이터에 대해 <strong>날씨</strong>와 <strong>지역</strong> 별 데이터의 개수를
+            보여주는 힛맵을 그리세요.</li>
         <li>가장 많은 데이터가 속한 (<strong>날씨</strong>, <strong>지역</strong>) 조합은 무엇입니까?</li>
     </ol>
 </ng-template>
@@ -110,7 +253,8 @@
     <ol>
         <li><strong>최대 온도</strong>와 <strong>최소 온도</strong>의 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
         <li><strong>최대 온도</strong>와 <strong>최소 온도</strong>에 대해 <u>선형 회귀 세이프가드</u>를 만드세요.</li>
-        <li><strong>최소 온도</strong>가 <em>~8</em>, <strong>최대 온도</strong>가 <em>~14</em>인 데이터에 대해 <strong>날씨</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
+        <li><strong>최소 온도</strong>가 <em>~8</em>, <strong>최대 온도</strong>가 <em>~14</em>인 데이터에 대해 <strong>날씨</strong> 별
+            데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
         <li>가장 많은 데이터가 속한 <strong>날씨</strong>는 무엇입니까?</li>
     </ol>
 </ng-template>
@@ -119,7 +263,8 @@
     <ol>
         <li><strong>야생동물 크기</strong> 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
         <li>가장 개수가 많은 <strong>야생동물 크기</strong>에 대해 <u>순위 세이프가드</u>를 만들고, 순위를 <mark>1위</mark>만 포함하도록 설정하세요.</li>
-        <li>가장 개수가 많은 <strong>야생동물 크기</strong>에 해당하는 데이터에 대해 <strong>비행 속도</strong>와 <strong>총 비용</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li>가장 개수가 많은 <strong>야생동물 크기</strong>에 해당하는 데이터에 대해 <strong>비행 속도</strong>와 <strong>총 비용</strong> 별 데이터의 개수를
+            보여주는 힛맵을 그리세요.</li>
         <li>가장 많은 데이터가 속한 (<strong>비행속도</strong>, <strong>총 비용</strong>)의 구간은 무엇입니까?</li>
     </ol>
 </ng-template>
@@ -127,8 +272,10 @@
 <ng-template #p7>
     <ol>
         <li><strong>비행 속도</strong>의 구간 별 데이터의 개수를 보여주는 막대 그래프를 그리세요.</li>
-        <li><strong>비행 속도</strong>가 <em>~140</em>인 구간에 <u>범위 세이프가드</u>를 만들고, 범위가 <mark>1,500이상 2,000이하</mark>를 포함하도록 설정하세요.</li>
-        <li><strong>비행 속도</strong>가 <em>~140</em>인 구간에 해당하는 데이터에 대해 <strong>피해 정도</strong>와 <strong>항공기 상태</strong> 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
+        <li><strong>비행 속도</strong>가 <em>~140</em>인 구간에 <u>범위 세이프가드</u>를 만들고, 범위가 <mark>1,500이상 2,000이하</mark>를 포함하도록
+            설정하세요.</li>
+        <li><strong>비행 속도</strong>가 <em>~140</em>인 구간에 해당하는 데이터에 대해 <strong>피해 정도</strong>와 <strong>항공기 상태</strong> 별
+            데이터의 개수를 보여주는 힛맵을 그리세요.</li>
         <li>가장 많은 데이터가 속한 (<strong>피해 정도</strong>, <strong>항공기</strong>) 조합은 무엇입니까?</li>
     </ol>
 </ng-template>
@@ -155,7 +302,8 @@
     <ol>
         <li><strong>수리 비용</strong>과 <strong>기타 비용</strong>의 구간 별 데이터의 개수를 보여주는 힛맵을 그리세요.</li>
         <li><strong>수리 비용</strong>과 <strong>기타 비용</strong>에 대해 <u>선형 회귀 세이프가드</u>를 만드세요.</li>
-        <li><strong>수리 비용</strong>이 <em>~1억</em>, <strong>기타 비용</strong>이 <em>~400만</em>인 데이터에 대해 <strong>사고 년도</strong> 별 데이터의 개수를 보여주는 막대그래프를 그리세요.</li>
+        <li><strong>수리 비용</strong>이 <em>~1억</em>, <strong>기타 비용</strong>이 <em>~400만</em>인 데이터에 대해 <strong>사고 년도</strong>
+            별 데이터의 개수를 보여주는 막대그래프를 그리세요.</li>
         <li>가장 많은 데이터가 속한 <strong>사고 년도</strong>는 몇 년입니까?</li>
     </ol>
 </ng-template>

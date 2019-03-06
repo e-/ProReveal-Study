@@ -42,3 +42,27 @@ mark {
 .solved {
     opacity: .3;
 }
+
+.choice {
+    cursor: pointer;
+
+    &:hover {
+        background: var(--teal);
+    }
+}
+
+.no-bullets {
+    list-style: none;
+    padding-left: 1em;
+}
+
+.flcl{
+    float: left;
+    clear: left;
+}
+
+
+h3 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}

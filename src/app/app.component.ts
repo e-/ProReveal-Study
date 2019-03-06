@@ -29,11 +29,19 @@ export class AppComponent implements OnInit {
 
     problemTemplates: { [pid: string]: TemplateRef<any> };
 
-    uid: string = null;
+    uid: string = '2'; //null;
 
+    tid: number = 2;
     pid: number = 0; //2;
     startAt: number;
     endAt: number;
+
+    t1q = false;
+    t2q = false;
+    t3q = false;
+    t4q = false;
+    t5q = false;
+
 
     constructor(public logger: LoggerService) {
 
@@ -71,6 +79,14 @@ export class AppComponent implements OnInit {
         window.open(this.url('weather', this.uid, '0'), WindowName, 'resize');
     }
 
+    train(tid: number) {
+        this.tid = tid;
+    }
+
+    trainingBack() {
+        this.tid = 0;
+    }
+
     startProblem(pid: number) {
         this.pid = pid;
         this.startAt = +new Date();
@@ -79,7 +95,7 @@ export class AppComponent implements OnInit {
     }
 
     select(answer: number) {
-        window.open('http://blank.org', WindowName, 'resize');
+        window.open('https://e-.github.io/blank/', WindowName, 'resize');
 
         const endAt = +new Date();
         let problemLog = this.logger.userLog.getProblemLog(this.pid);
@@ -110,5 +126,9 @@ export class AppComponent implements OnInit {
         document.body.appendChild(anchor); // required for firefox
         anchor.click();
         anchor.remove();
+    }
+
+    wrong() {
+        alert('다시 생각해 보세요!')
     }
 }
