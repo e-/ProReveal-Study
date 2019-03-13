@@ -5,6 +5,7 @@ import { C } from './constants';
 
 const WindowName = 'expwindow';
 const Task2Data = 'movies';
+const Task2DataSAT = 'SAT';
 const Task2SId = 'task2';
 
 @Component({
@@ -114,6 +115,12 @@ export class AppComponent implements OnInit {
 
     startTask2() {
         let url = this.url(Task2Data, this.uid, Task2SId);
+        url += '&alternate=1&init=1'
+        window.open(url, WindowName, 'resize');
+    }
+
+    startTask2SAT() {
+        let url = this.url(Task2DataSAT, this.uid, Task2SId);
         url += '&alternate=1&init=1'
         window.open(url, WindowName, 'resize');
     }
